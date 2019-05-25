@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./modal-preview.page.scss'],
 })
 export class ModalPreviewPage implements OnInit {
-  public urlIMG;
+  public urlIMG:string;
   constructor(private modalController:ModalController) { }
 
   ngOnInit() {
