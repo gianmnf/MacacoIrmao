@@ -1,5 +1,6 @@
 export interface Ocorrencia {
-    idUsuario: string;    
+    idUsuario: string;  
+    idOcorrencia: string;  
     latitude: number;
     longitude: number;
     logradouro:string;
@@ -13,4 +14,5 @@ export interface Ocorrencia {
     zona: string;
     pais: string;
     imageUrl: string;
+    status: string;
 }

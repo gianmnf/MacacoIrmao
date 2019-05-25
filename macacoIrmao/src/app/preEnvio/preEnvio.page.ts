@@ -55,6 +55,8 @@ export class PreEnvioPage implements OnInit{
    enviarDados(){
     this.afAuth.authState.subscribe(auth => {
       this.ocorrencia.idUsuario = auth.uid;
+      this.ocorrencia.idOcorrencia = this.hashOcorrencia;
+      this.ocorrencia.status = 'Não visitado';
       var setOcorrencia = this.afs.collection('ocorrencia').doc(this.hashOcorrencia).set(this.ocorrencia);
       setOcorrencia.then(() => this.enviado());
     })
