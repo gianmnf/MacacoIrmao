@@ -39,11 +39,6 @@ export class AppComponent {
       title: 'Sobre o App',
       url: '/sobre',
       icon: 'information-circle-outline'
-    },
-    {
-      title: 'Admin',
-      url: '/admin',
-      icon: 'glasses'
     }
   ];
   

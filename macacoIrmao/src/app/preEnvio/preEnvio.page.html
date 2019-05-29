@@ -14,14 +14,15 @@
         <ion-title>Enviar</ion-title>
         <div id="map_canvas"></div>
         <br>
-        <ion-item id="itemEnvio">
+       <!--<ion-item id="itemEnvio">-->
             <ion-thumbnail slot="start">
               <img [src]="downloadUrl | async" *ngIf="downloadUrl | async" style="height: 100%"/>
             </ion-thumbnail>
-            <ion-label id="lblEnvio">
-              <ion-button shape="round" id="btnPreview" (click)="modPreview(downloadUrl)">Pré-Visualizar</ion-button>
+             <!--<ion-label id="lblEnvio">
+            <ion-button shape="round" id="btnPreview" (click)="modPreview()">Pré-Visualizar</ion-button>
             </ion-label>
           </ion-item>
+          <ion-button shape="round" id="btnPreview" (click)="modPreview()">Pré-Visualizar</ion-button>-->
           <ion-input [(ngModel)]="ocorrencia.imageUrl" value="{{downloadUrl | async}}" style="display:none"></ion-input>
           <ion-input [(ngModel)]="ocorrencia.latitude" [value]="ocorrencia.latitude" style="display:none"></ion-input>
           <ion-input [(ngModel)]="ocorrencia.longitude" [value]="ocorrencia.longitude" style="display:none"></ion-input>
@@ -75,7 +76,6 @@
                 <ion-item>
                   <ion-label floating>País</ion-label>
                   <ion-input [(ngModel)]="ocorrencia.pais" [value]="ocorrencia.pais"></ion-input>
-                  <!--<mbsc-select [(ngModel)]="ocorrencia.pais" [options]="desktopFilterSettings"></mbsc-select>-->
                 </ion-item>
     </div>
     <div id="Envio">

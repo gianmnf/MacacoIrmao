@@ -37,7 +37,6 @@ export class PreEnvioPage implements OnInit{
     private afs: AngularFirestore, private camera: Camera,private platform: Platform, private file: File,
     private afStorage: AngularFireStorage, private geo: Geolocation, private natGeo: NativeGeocoder,
     private modalController: ModalController){
-    this.envioPronto = false;
   }
 
   ngOnInit(){
@@ -82,9 +81,7 @@ export class PreEnvioPage implements OnInit{
         const path: string = fileUri.substring(0, fileUri.lastIndexOf('/'));
         const buffer: ArrayBuffer = await this.file.readAsArrayBuffer(path,file);
         const blob: Blob = new Blob([buffer], {type: 'image/jpeg'});
-        if(this.envioPronto == true){
         this.uploadFoto(blob);
-        }
       }catch(error){
         console.log(error);
       }
@@ -120,7 +117,6 @@ export class PreEnvioPage implements OnInit{
     this.ocorrencia.latitude = this.lat;
     this.ocorrencia.longitude = this.long;
     this.geraEndereco(this.lat,this.long);
-    this.envioPronto = true;
     }).catch((error) => {
       console.log(error);
     })
