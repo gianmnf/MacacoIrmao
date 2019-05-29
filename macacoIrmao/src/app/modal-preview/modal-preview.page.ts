@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController,NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-preview',
@@ -7,10 +7,11 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./modal-preview.page.scss'],
 })
 export class ModalPreviewPage implements OnInit {
-  public urlIMG;
-  constructor(private modalController:ModalController) { }
+  public urlIMG: string;
+  constructor(private modalController:ModalController,private navParams:NavParams) { }
 
   ngOnInit() {
+    this.urlIMG = this.navParams.data.urlIMG;
   }
 
   dismiss(){

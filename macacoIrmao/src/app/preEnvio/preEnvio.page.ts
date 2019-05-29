@@ -3,12 +3,12 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Ocorrencia } from '../modelos/ocorrencia';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {NavController,Platform, PopoverController} from '@ionic/angular'; 
+import {NavController,Platform, PopoverController,NavParams} from '@ionic/angular'; 
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, timestamp } from 'rxjs/operators';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder,NativeGeocoderOptions,NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, Marker, GoogleMapsAnimation, MyLocation} from '@ionic-native/google-maps';
@@ -32,6 +32,7 @@ export class PreEnvioPage implements OnInit{
   local:string;
   public localCompleto:string;
   envioPronto:boolean;
+  dataReturned: any;
   constructor(private webview: WebView,private afAuth: AngularFireAuth, private navCtrl: NavController, 
     private afs: AngularFirestore, private camera: Camera,private platform: Platform, private file: File,
     private afStorage: AngularFireStorage, private geo: Geolocation, private natGeo: NativeGeocoder,
@@ -44,6 +45,7 @@ export class PreEnvioPage implements OnInit{
     this.platform.ready();
     this.carregaMapa();
     this.tirarFoto();
+    this.getDadosUser();
   }
 
   hashGen(){
@@ -57,6 +59,9 @@ export class PreEnvioPage implements OnInit{
    enviarDados(){
     this.afAuth.authState.subscribe(auth => {
       this.ocorrencia.idUsuario = auth.uid;
+      const timeStamp = new Date();
+      this.ocorrencia.dataAtual = JSON.stringify(timeStamp);
+      this.ocorrencia.status = 'A Visitar';
       var setOcorrencia = this.afs.collection('ocorrencia').doc(this.hashOcorrencia).set(this.ocorrencia);
       setOcorrencia.then(() => this.enviado());
     })
@@ -139,15 +144,27 @@ export class PreEnvioPage implements OnInit{
 
   //Preview Imagem
   async modPreview(url){
-    console.log(url);
     const modal = await this.modalController.create({
       component: ModalPreviewPage,
       componentProps:{
-        urlIMG: url
+        "urlIMG": JSON.stringify(url)
       }
     });
+    modal.onDidDismiss().then((dataReturned) => {
+      if(dataReturned != null){
+        this.dataReturned = dataReturned.data;
+      }
+    })
     await modal.present();
   }
 
-
+  getDadosUser(){
+    this.afAuth.authState.subscribe(auth => {
+      var getDados = this.afs.collection('perfil').doc(auth.uid).ref;
+      getDados.get().then(doc => {
+        this.ocorrencia.nomeSobrenome = doc.data().nome + ' ' + doc.data().sobrenome;
+        this.ocorrencia.celular = doc.data().celular;
+      })
+    })
+  }
 }

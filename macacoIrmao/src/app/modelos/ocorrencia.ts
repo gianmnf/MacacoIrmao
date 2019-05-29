@@ -13,4 +13,8 @@ export interface Ocorrencia {
     zona: string;
     pais: string;
     imageUrl: string;
+    nomeSobrenome: string;
+    celular: string;
+    dataAtual: string;
+    status: string;
 }

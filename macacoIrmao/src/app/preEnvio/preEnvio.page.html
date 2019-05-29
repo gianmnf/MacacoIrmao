@@ -25,6 +25,8 @@
           <ion-input [(ngModel)]="ocorrencia.imageUrl" value="{{downloadUrl | async}}" style="display:none"></ion-input>
           <ion-input [(ngModel)]="ocorrencia.latitude" [value]="ocorrencia.latitude" style="display:none"></ion-input>
           <ion-input [(ngModel)]="ocorrencia.longitude" [value]="ocorrencia.longitude" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.nomeSobrenome" [value]="ocorrencia.nomeSobrenome" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.celular" [value]="ocorrencia.celular" style="display:none"></ion-input>
           <ion-item>
               <ion-label>Logradouro</ion-label>
               <ion-input [(ngModel)]="ocorrencia.logradouro" [value]="ocorrencia.logradouro"></ion-input>
@@ -62,7 +64,7 @@
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Zona</ion-label>
-                  <ion-select [(ngModel)]="ocorrencia.zona" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One">
+                  <ion-select [(ngModel)]="ocorrencia.zona" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Selecione">
                     <ion-select-option value="Urbana">Urbana</ion-select-option>
                     <ion-select-option value="Periurbana">Periurbana</ion-select-option>
                     <ion-select-option value="Rural">Rural</ion-select-option>
