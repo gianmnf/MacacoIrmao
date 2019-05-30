@@ -24,6 +24,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 
 firebase.initializeApp(environment.firebase);
@@ -52,6 +53,7 @@ firebase.initializeApp(environment.firebase);
     Camera,
     WebView,
     File,
+    AndroidPermissions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
