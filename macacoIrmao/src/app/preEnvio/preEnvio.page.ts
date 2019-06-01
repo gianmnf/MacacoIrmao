@@ -59,7 +59,8 @@ export class PreEnvioPage implements OnInit{
     this.afAuth.authState.subscribe(auth => {
       this.ocorrencia.idUsuario = auth.uid;
       const timeStamp = new Date();
-      this.ocorrencia.dataAtual = JSON.stringify(timeStamp);
+      const dataFinal = timeStamp.getDay() + '/' + timeStamp.getMonth() + '/' + timeStamp.getFullYear() + ' - ' + timeStamp.getHours() + ':' + timeStamp.getMinutes();
+      this.ocorrencia.dataAtual = JSON.stringify(dataFinal);
       this.ocorrencia.status = 'A Visitar';
       var setOcorrencia = this.afs.collection('ocorrencia').doc(this.hashOcorrencia).set(this.ocorrencia);
       setOcorrencia.then(() => this.enviado());
