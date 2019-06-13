@@ -1,12 +1,11 @@
 import { MbscModule } from '@mobiscroll/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-
 import { PreEnvioPage } from './preEnvio.page';
 import { ModalPreviewPage} from '../modal-preview/modal-preview.page';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [ 
@@ -14,6 +13,7 @@ import { ModalPreviewPage} from '../modal-preview/modal-preview.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: 'preEnvio',

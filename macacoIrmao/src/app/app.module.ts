@@ -14,7 +14,7 @@ import { AutenticacaoService } from './services/autenticacao.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import * as firebase from 'firebase';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
@@ -43,6 +43,7 @@ firebase.initializeApp(environment.firebase);
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
     AngularFirestoreModule,
+    FormsModule,
   ],
   providers: [
     StatusBar,

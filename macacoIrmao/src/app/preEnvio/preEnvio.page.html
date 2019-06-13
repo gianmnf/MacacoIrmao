@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>    
-    <div id="preInfo">
+    <form [formGroup]="FormDados" id="preInfo" (ngSubmit)="enviarDados()">
         <ion-title>Enviar</ion-title>
         <div id="map_canvas"></div>
         <br>
@@ -23,14 +23,14 @@
             </ion-label>
           </ion-item>
           <ion-button shape="round" id="btnPreview" (click)="modPreview()">Pré-Visualizar</ion-button>-->
-          <ion-input [(ngModel)]="ocorrencia.imageUrl" value="{{downloadUrl | async}}" style="display:none"></ion-input>
-          <ion-input [(ngModel)]="ocorrencia.latitude" [value]="ocorrencia.latitude" style="display:none"></ion-input>
-          <ion-input [(ngModel)]="ocorrencia.longitude" [value]="ocorrencia.longitude" style="display:none"></ion-input>
-          <ion-input [(ngModel)]="ocorrencia.nomeSobrenome" [value]="ocorrencia.nomeSobrenome" style="display:none"></ion-input>
-          <ion-input [(ngModel)]="ocorrencia.celular" [value]="ocorrencia.celular" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.imageUrl" formControlName="imageUrl" value="{{downloadUrl | async}}" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.latitude" formControlName="latitude" [value]="ocorrencia.latitude" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.longitude" formControlName="longitude" [value]="ocorrencia.longitude" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.nomeSobrenome" formControlName="nomeSobrenome" [value]="ocorrencia.nomeSobrenome" style="display:none"></ion-input>
+          <ion-input [(ngModel)]="ocorrencia.celular" formControlName="celular" [value]="ocorrencia.celular" style="display:none"></ion-input>
           <ion-item>
               <ion-label>Logradouro</ion-label>
-              <ion-input [(ngModel)]="ocorrencia.logradouro" [value]="ocorrencia.logradouro"></ion-input>
+              <ion-input [(ngModel)]="ocorrencia.logradouro" formControlName="logradouro" [value]="ocorrencia.logradouro"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Informações Adicionais</ion-label>
@@ -41,31 +41,27 @@
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Ponto de Referência</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.pontoReferencia"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.pontoReferencia" formControlName="pontoReferencia"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Bairro</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.bairro"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.bairro" formControlName="bairro"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Município</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.municipio" [value]="ocorrencia.municipio"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label floating>Código IBGE</ion-label>
-                  <ion-input type="number" [(ngModel)]="ocorrencia.codIBGE"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.municipio" [value]="ocorrencia.municipio" formControlName="municipio"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Estado</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.estado" [value]="ocorrencia.estado"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.estado" [value]="ocorrencia.estado" formControlName="estado"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label floating>CEP</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.cep" [value]="ocorrencia.cep"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.cep" [value]="ocorrencia.cep" formControlName="cep"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label floating>Zona</ion-label>
-                  <ion-select [(ngModel)]="ocorrencia.zona" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Selecione">
+                  <ion-select [(ngModel)]="ocorrencia.zona" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Selecione" formControlName="zona">
                     <ion-select-option value="Urbana">Urbana</ion-select-option>
                     <ion-select-option value="Periurbana">Periurbana</ion-select-option>
                     <ion-select-option value="Rural">Rural</ion-select-option>
@@ -75,13 +71,13 @@
                 </ion-item>
                 <ion-item>
                   <ion-label floating>País</ion-label>
-                  <ion-input [(ngModel)]="ocorrencia.pais" [value]="ocorrencia.pais"></ion-input>
+                  <ion-input [(ngModel)]="ocorrencia.pais" [value]="ocorrencia.pais" formControlName="pais"></ion-input>
                 </ion-item>
-    </div>
     <div id="Envio">
-        <ion-button shape="round" id="btnEnvio" (click)="enviarDados()">
+        <ion-button shape="round" id="btnEnvio" class="submit-btn" type="submit" [disabled]="!FormDados.valid">
             <ion-icon id="btnEnvioIcon" slot="icon-only" name="send"></ion-icon>
             <ion-label>Enviar</ion-label>
         </ion-button>
      </div>
+     </form>
 </ion-content>

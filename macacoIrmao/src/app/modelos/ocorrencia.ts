@@ -8,7 +8,6 @@ export interface Ocorrencia {
     pontoReferencia: string;
     bairro: string;
     municipio: string;
-    codIBGE: number;
     estado: string;
     cep: string;
     zona: string;
@@ -16,6 +15,5 @@ export interface Ocorrencia {
     imageUrl: string;
     nomeSobrenome: string;
     celular: string;
-    dataAtual: string;
     status: string;
 }

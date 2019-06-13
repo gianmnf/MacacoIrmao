@@ -14,6 +14,8 @@ import { NativeGeocoder,NativeGeocoderOptions,NativeGeocoderResult } from '@ioni
 import {GoogleMaps, GoogleMap, GoogleMapsEvent, Marker, GoogleMapsAnimation, MyLocation} from '@ionic-native/google-maps';
 import {ModalController} from '@ionic/angular';
 import {ModalPreviewPage} from '../modal-preview/modal-preview.page';
+import * as firebase from 'firebase';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-preEnvio',
@@ -33,22 +35,37 @@ export class PreEnvioPage implements OnInit{
   public localCompleto:string;
   envioPronto:boolean;
   dataReturned: any;
+  public FormDados: FormGroup;
+  public tentativaEnvio: boolean = false;
+  public mostraErro: boolean = false;
   constructor(private webview: WebView,private afAuth: AngularFireAuth, private navCtrl: NavController, 
     private afs: AngularFirestore, private camera: Camera,private platform: Platform, private file: File,
     private afStorage: AngularFireStorage, private geo: Geolocation, private natGeo: NativeGeocoder,
-    private modalController: ModalController){
+    private modalController: ModalController,public formBuilder: FormBuilder){
   }
 
   ngOnInit(){
-    this.hashGen();
     this.platform.ready();
     this.carregaMapa();
     this.tirarFoto();
     this.getDadosUser();
-  }
+    this.formValidation();
+  }  
 
-  hashGen(){
-    this.hashOcorrencia = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  formValidation(){
+    this.FormDados = this.formBuilder.group({
+      imageUrl: new FormControl('', Validators.required),
+      latitude: new FormControl('', Validators.required),
+      longitude: new FormControl('', Validators.required),
+      nomeSobrenome: new FormControl('', Validators.required),
+      celular: new FormControl('', Validators.required),
+      pontoReferencia: new FormControl('', Validators.required),
+      bairro: new FormControl('', Validators.required),
+      municipio: new FormControl('', Validators.required),
+      estado: new FormControl('', Validators.required),
+      zona: new FormControl('', Validators.required),
+      pais: new FormControl('', Validators.required),
+    });
   }
 
   enviado(){
@@ -58,11 +75,9 @@ export class PreEnvioPage implements OnInit{
    enviarDados(){
     this.afAuth.authState.subscribe(auth => {
       this.ocorrencia.idUsuario = auth.uid;
-      const timeStamp = new Date();
-      const dataFinal = timeStamp.getDay() + '/' + timeStamp.getMonth() + '/' + timeStamp.getFullYear() + ' - ' + timeStamp.getHours() + ':' + timeStamp.getMinutes();
-      this.ocorrencia.dataAtual = JSON.stringify(dataFinal);
       this.ocorrencia.status = 'A Visitar';
-      var setOcorrencia = this.afs.collection('ocorrencia').doc(this.hashOcorrencia).set(this.ocorrencia);
+      let id = this.afs.createId();
+      var setOcorrencia = this.afs.collection('ocorrencia').doc(id).set(this.ocorrencia);
       setOcorrencia.then(() => this.enviado());
     })
    }
