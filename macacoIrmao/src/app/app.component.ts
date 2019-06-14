@@ -39,6 +39,11 @@ export class AppComponent {
       title: 'Sobre o App',
       url: '/sobre',
       icon: 'information-circle-outline'
+    },
+    {
+      title: 'Saiba Mais',
+      url: '/saiba-mais',
+      icon: 'warning'
     }
   ];
   
