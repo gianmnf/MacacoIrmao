@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { NavController,MenuController } from '@ionic/angular';
+import { NavController,MenuController,AlertController } from '@ionic/angular';
 import { AutenticacaoService } from '../../services/autenticacao.service';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private menu: MenuController
+    private menu: MenuController,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -35,11 +36,24 @@ export class LoginPage implements OnInit {
         Validators.required
       ])),
     });
+
+    //Alerta usuário sobre região
+    this.aviso();
   }
 
   ionViewWillEnter() {
     //Desativa Menu lateral na tela de login
     this.menu.enable(false);
+  }
+
+  async aviso(){
+    const aviso = await this.alertController.create({
+      header: 'Aviso',
+      message: 'Este aplicativo funciona apenas na área de Patos de Minas/MG e região. Caso não esteja nesta área sua ocorrência não será atendida.',
+      buttons: ['OK']
+    });
+
+    await aviso.present();
   }
 
   user: string;
