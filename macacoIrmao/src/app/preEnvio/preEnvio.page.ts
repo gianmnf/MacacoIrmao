@@ -16,6 +16,7 @@ import {ModalController} from '@ionic/angular';
 import {ModalPreviewPage} from '../modal-preview/modal-preview.page';
 import * as firebase from 'firebase';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import  { HTTP } from '@ionic-native/http/ngx';
 
 @Component({
   selector: 'app-preEnvio',
@@ -41,7 +42,7 @@ export class PreEnvioPage implements OnInit{
   constructor(private webview: WebView,private afAuth: AngularFireAuth, private navCtrl: NavController, 
     private afs: AngularFirestore, private camera: Camera,private platform: Platform, private file: File,
     private afStorage: AngularFireStorage, private geo: Geolocation, private natGeo: NativeGeocoder,
-    private modalController: ModalController,public formBuilder: FormBuilder){
+    private modalController: ModalController,public formBuilder: FormBuilder,private http: HTTP){
   }
 
   ngOnInit(){
@@ -65,6 +66,7 @@ export class PreEnvioPage implements OnInit{
       estado: new FormControl('', Validators.required),
       zona: new FormControl('', Validators.required),
       pais: new FormControl('', Validators.required),
+      estadoAnimal: new FormControl('', Validators.required),
     });
   }
 
@@ -80,6 +82,14 @@ export class PreEnvioPage implements OnInit{
       var setOcorrencia = this.afs.collection('ocorrencia').doc(id).set(this.ocorrencia);
       setOcorrencia.then(() => this.enviado());
     })
+   }
+
+   getMunicipio(cep){
+      var urlCEP = 'https://viacep.com.br/ws/' + cep + '/json/';
+      this.http.get(urlCEP,{},{}).then(data => {
+        var dadosRecebidos = JSON.parse(data.data);
+        this.ocorrencia.municipio = dadosRecebidos.localidade;
+      })
    }
 
    async tirarFoto(){
@@ -142,11 +152,11 @@ export class PreEnvioPage implements OnInit{
     this.natGeo.reverseGeocode(latitude,longitude,{useLocale:true,maxResults:1})
     .then((resultado: NativeGeocoderResult[]) => {
       this.ocorrencia.logradouro = resultado[0].thoroughfare + ' ' + resultado[0].subThoroughfare;
-      this.ocorrencia.municipio = resultado[0].locality;
       this.ocorrencia.cep = resultado[0].postalCode;
       this.ocorrencia.pais = resultado[0].countryName;
       this.ocorrencia.estado = resultado[0].administrativeArea;
     })
+    this.getMunicipio(this.ocorrencia.cep);
   }
 
   carregaMapa(){

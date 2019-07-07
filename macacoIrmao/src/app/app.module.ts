@@ -25,6 +25,7 @@ import {Camera} from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 firebase.initializeApp(environment.firebase);
@@ -54,6 +55,7 @@ firebase.initializeApp(environment.firebase);
     Camera,
     WebView,
     File,
+    HTTP,
     AndroidPermissions,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

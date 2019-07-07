@@ -16,4 +16,5 @@ export interface Ocorrencia {
     nomeSobrenome: string;
     celular: string;
     status: string;
+    estadoAnimal:string;
 }
