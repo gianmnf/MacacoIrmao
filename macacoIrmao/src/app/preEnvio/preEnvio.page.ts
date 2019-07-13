@@ -114,7 +114,8 @@ export class PreEnvioPage implements OnInit{
    }
 
    uploadFoto(blob: Blob){
-      const ref = this.afStorage.ref('ocorrencias/' + this.hashOcorrencia + '.jpg');
+      let hashFoto = JSON.stringify(this.afs.createId());
+      const ref = this.afStorage.ref('ocorrencias/' + hashFoto + '.jpg');
       const task = ref.put(blob);
 
       task.snapshotChanges().pipe(
