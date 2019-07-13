@@ -155,8 +155,8 @@ export class PreEnvioPage implements OnInit{
       this.ocorrencia.cep = resultado[0].postalCode;
       this.ocorrencia.pais = resultado[0].countryName;
       this.ocorrencia.estado = resultado[0].administrativeArea;
+      this.getMunicipio(this.ocorrencia.cep);
     })
-    this.getMunicipio(this.ocorrencia.cep);
   }
 
   carregaMapa(){
