@@ -1,3 +1,4 @@
+# Projeto desativado e banco de dados apagado pois não havia uso e nem ouve manifestação para que fosse usado.
 # :brazil: Macaco Irmão
 Aplicativo usando Ionic para controlar focos de febre Amarela(Macacos) na cidade de Patos de Minas e seus distritos.
 <br><br><strong>Equipe:</strong>
